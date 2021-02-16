@@ -28,6 +28,7 @@ import xyz.gaborohez.beautygallery.R;
 import xyz.gaborohez.beautygallery.adapter.FolderAdapter;
 import xyz.gaborohez.beautygallery.base.BaseFragment;
 import xyz.gaborohez.beautygallery.databinding.FragmentFolderBinding;
+import xyz.gaborohez.beautygallery.ui.carousel.view.CarouselFragment;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
 import xyz.gaborohez.beautygallery.utils.ImagesGallery;
@@ -160,5 +161,7 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     @Override
     public void onPhotoClick(int position) {
         Log.d(TAG, "onPhotoClick: "+position);
+        String[] path = folders.get(position).get(0).split("/");
+        addFragment(CarouselFragment.newInstance(folders.get(position), path[path.length-2]), R.id.contentFragment);
     }
 }
