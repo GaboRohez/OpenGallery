@@ -1,8 +1,8 @@
-package xyz.gaborohez.beautygallery;
+package xyz.gaborohez.beautygallery.utils;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
 @GlideModule
-public class CustomeGlideModule extends AppGlideModule {
+public class CustomGlideModule extends AppGlideModule {
 }

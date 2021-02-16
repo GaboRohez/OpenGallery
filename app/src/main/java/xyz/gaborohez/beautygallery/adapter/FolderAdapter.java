@@ -1,4 +1,4 @@
-package xyz.gaborohez.beautygallery;
+package xyz.gaborohez.beautygallery.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import xyz.gaborohez.beautygallery.databinding.ItemFolderBinding;
-import xyz.gaborohez.beautygallery.databinding.ItemImagesBinding;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder> {
 

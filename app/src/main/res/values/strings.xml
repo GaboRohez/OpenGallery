@@ -6,4 +6,7 @@
     <string name="text_write_permission">%1$s needs access to your external storage so you can see the photos, do you want to accept them?</string>
     <string name="manually_settings">You need to grant the permissions manually</string>
     <string name="settings">SETTINGS</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_images_found">No images found</string>
 </resources>

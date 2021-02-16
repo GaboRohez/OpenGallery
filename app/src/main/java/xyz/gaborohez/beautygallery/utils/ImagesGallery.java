@@ -1,4 +1,4 @@
-package xyz.gaborohez.beautygallery;
+package xyz.gaborohez.beautygallery.utils;
 
 import android.content.Context;
 import android.database.Cursor;
