@@ -23,7 +23,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     protected PhotoListener listener;
 
     public interface PhotoListener{
-        void onPhotoClick(String path);
+        void onPhotoClick(int position);
     }
 
     public FolderAdapter(Context context, List<String> images, PhotoListener listener) {
@@ -52,7 +52,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         Log.d(TAG, "onBindViewHolder: "+image);
 
 
-        holder.itemView.setOnClickListener(v -> listener.onPhotoClick(image));
+        holder.itemView.setOnClickListener(v -> listener.onPhotoClick(position));
     }
 
     @Override

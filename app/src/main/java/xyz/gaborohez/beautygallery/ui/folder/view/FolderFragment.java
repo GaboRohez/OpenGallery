@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.provider.Settings;
@@ -25,14 +24,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import xyz.gaborohez.beautygallery.R;
 import xyz.gaborohez.beautygallery.adapter.FolderAdapter;
 import xyz.gaborohez.beautygallery.base.BaseFragment;
-import xyz.gaborohez.beautygallery.constants.AppConstants;
-import xyz.gaborohez.beautygallery.databinding.ActivityMainBinding;
 import xyz.gaborohez.beautygallery.databinding.FragmentFolderBinding;
-import xyz.gaborohez.beautygallery.ui.MainActivity;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
 import xyz.gaborohez.beautygallery.utils.ImagesGallery;
@@ -45,13 +40,15 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     private static final String TAG = "FolderFragment";
 
     private List<String> images;
-    private List<String> folders;
+    private List<String> coverFolder;
+    private List<List<String>> folders;
     private FolderAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         folders = new ArrayList<>();
+        coverFolder = new ArrayList<>();
         presenter = new FolderPresenter(this);
     }
 
@@ -140,7 +137,7 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
 
         binding.recycler.setHasFixedSize(true);
         binding.recycler.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
-        adapter = new FolderAdapter(requireActivity(), folders, this);
+        adapter = new FolderAdapter(requireActivity(), coverFolder, this);
         binding.recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -153,13 +150,15 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     }
 
     @Override
-    public void addFolder(String folder) {
+    public void addFolder(List<String> folder) {
         folders.add(folder);
+
+        coverFolder.add(folder.get(0));
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onPhotoClick(String path) {
-        Log.d(TAG, "onPhotoClick: "+path);
+    public void onPhotoClick(int position) {
+        Log.d(TAG, "onPhotoClick: "+position);
     }
 }

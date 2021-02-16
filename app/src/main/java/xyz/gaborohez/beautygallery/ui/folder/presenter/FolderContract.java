@@ -8,7 +8,7 @@ import xyz.gaborohez.beautygallery.base.BaseView;
 public interface FolderContract {
     interface View extends BaseView {
 
-        void addFolder(String folder);
+        void addFolder(List<String> folder);
     }
 
     interface Presenter {

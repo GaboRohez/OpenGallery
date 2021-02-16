@@ -29,7 +29,7 @@ public class FolderPresenter extends BasePresenter<FolderContract.View> implemen
                 .flatMapSingle(Observable::toList) //.flatMapSingle(g -> g.toList())
                 .subscribe(group -> {
                     System.out.println("folders: "+group);
-                    view.addFolder(group.get(0));
+                    view.addFolder(group);
                     //folders.add(group.get(0));
                     //adapter.notifyDataSetChanged();
                 }, throwable -> {
