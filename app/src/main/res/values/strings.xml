@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Open Gallery</string>
+    <string name="ok_message">Ok</string>
+    <string name="cancel_message">Cancel</string>
+    <string name="title_write_permission">Permission Request</string>
+    <string name="text_write_permission">%1$s needs access to your external storage so you can see the photos, do you want to accept them?</string>
+    <string name="manually_settings">You need to grant the permissions manually</string>
+    <string name="settings">SETTINGS</string>
+</resources>
