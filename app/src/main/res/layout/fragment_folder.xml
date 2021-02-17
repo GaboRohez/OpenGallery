@@ -81,7 +81,15 @@
 
         </LinearLayout>
 
+        <TextView
+            android:text="Albums"
+            android:layout_margin="@dimen/dimen_normal_size"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <RelativeLayout
+            android:layout_margin="@dimen/spacing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

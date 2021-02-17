@@ -3,4 +3,5 @@
     <dimen name="dimen_normal_size">16dp</dimen>
     <dimen name="dimen_medium_size">8dp</dimen>
     <dimen name="margin_extra_large">50dp</dimen>
+    <dimen name="spacing">8dp</dimen>
 </resources>

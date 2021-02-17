@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import xyz.gaborohez.beautygallery.data.FolderPOJO;
 import xyz.gaborohez.beautygallery.databinding.ItemFolderBinding;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder> {
@@ -19,16 +20,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     private static final String TAG = "FolderAdapter";
 
     private Context context;
-    private List<String> images;
+    private List<FolderPOJO> folders;
     protected PhotoListener listener;
 
     public interface PhotoListener{
         void onPhotoClick(int position);
     }
 
-    public FolderAdapter(Context context, List<String> images, PhotoListener listener) {
+    public FolderAdapter(Context context, List<FolderPOJO> folders, PhotoListener listener) {
         this.context = context;
-        this.images = images;
+        this.folders = folders;
         this.listener = listener;
     }
 
@@ -40,24 +41,21 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final String image = images.get(position);
+        final FolderPOJO folder = folders.get(position);
 
-        String[] path = image.split("/");
+        String[] path = folder.getPath().split("/");
         holder.binding.tvName.setText(path[path.length-2]);
 
         Glide.with(context)
-                .load(image)
+                .load(folders.get(position).getPath())
                 .into(holder.binding.imageView);
-
-        Log.d(TAG, "onBindViewHolder: "+image);
-
 
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(position));
     }
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return folders.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

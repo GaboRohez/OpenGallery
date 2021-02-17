@@ -4,11 +4,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import xyz.gaborohez.beautygallery.base.BaseView;
+import xyz.gaborohez.beautygallery.data.FolderPOJO;
 
 public interface FolderContract {
     interface View extends BaseView {
 
-        void addFolder(List<String> folder);
+        void addFolder(FolderPOJO folder);
     }
 
     interface Presenter {

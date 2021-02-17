@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import xyz.gaborohez.beautygallery.base.BasePresenter;
+import xyz.gaborohez.beautygallery.data.FolderPOJO;
 import xyz.gaborohez.beautygallery.ui.folder.interactor.FolderInteractor;
 
 public class FolderPresenter extends BasePresenter<FolderContract.View> implements FolderContract.Presenter {
@@ -29,9 +30,7 @@ public class FolderPresenter extends BasePresenter<FolderContract.View> implemen
                 .flatMapSingle(Observable::toList) //.flatMapSingle(g -> g.toList())
                 .subscribe(group -> {
                     System.out.println("folders: "+group);
-                    view.addFolder(group);
-                    //folders.add(group.get(0));
-                    //adapter.notifyDataSetChanged();
+                    view.addFolder(new FolderPOJO(group.get(0), group.size()));
                 }, throwable -> {
                     Log.d(TAG, "getFolders: "+throwable.getMessage());
                 }));

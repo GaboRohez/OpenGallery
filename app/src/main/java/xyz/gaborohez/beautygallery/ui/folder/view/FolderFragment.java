@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +25,10 @@ import java.util.List;
 
 import xyz.gaborohez.beautygallery.R;
 import xyz.gaborohez.beautygallery.adapter.FolderAdapter;
+import xyz.gaborohez.beautygallery.adapter.SpacesItemDecoration;
 import xyz.gaborohez.beautygallery.base.BaseFragment;
+import xyz.gaborohez.beautygallery.data.FolderPOJO;
 import xyz.gaborohez.beautygallery.databinding.FragmentFolderBinding;
-import xyz.gaborohez.beautygallery.ui.carousel.view.CarouselFragment;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
 import xyz.gaborohez.beautygallery.utils.ImagesGallery;
@@ -41,15 +41,15 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     private static final String TAG = "FolderFragment";
 
     private List<String> images;
-    private List<String> coverFolder;
-    private List<List<String>> folders;
+    private List<FolderPOJO> folders;
+    //private List<List<String>> folders;
     private FolderAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         folders = new ArrayList<>();
-        coverFolder = new ArrayList<>();
+        //coverFolder = new ArrayList<>();
         presenter = new FolderPresenter(this);
     }
 
@@ -137,10 +137,13 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     private void loadImages() {
 
         binding.recycler.setHasFixedSize(true);
-        binding.recycler.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
-        adapter = new FolderAdapter(requireActivity(), coverFolder, this);
+        binding.recycler.setLayoutManager(new GridLayoutManager(requireActivity(), 2));
+        adapter = new FolderAdapter(requireActivity(), folders, this);
         binding.recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
+        binding.recycler.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         images = ImagesGallery.listOfImages(requireActivity());
 
@@ -151,17 +154,17 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     }
 
     @Override
-    public void addFolder(List<String> folder) {
+    public void addFolder(FolderPOJO folder) {
         folders.add(folder);
 
-        coverFolder.add(folder.get(0));
+        //coverFolder.add(folder.get(0));
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPhotoClick(int position) {
-        Log.d(TAG, "onPhotoClick: "+position);
-        String[] path = folders.get(position).get(0).split("/");
-        addFragment(CarouselFragment.newInstance(folders.get(position), path[path.length-2]), R.id.contentFragment);
+        //Log.d(TAG, "onPhotoClick: "+position);
+        //String[] path = folders.get(position).get(0).split("/");
+        //addFragment(CarouselFragment.newInstance(folders.get(position), path[path.length-2]), R.id.contentFragment);
     }
 }
