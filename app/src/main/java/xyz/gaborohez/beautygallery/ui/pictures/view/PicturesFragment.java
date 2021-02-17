@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,8 @@ public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, F
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         presenter = new PicturesPresenter(this);
         if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
@@ -79,5 +82,11 @@ public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, F
         adapter.notifyDataSetChanged();
 
         binding.recycler.scrollToPosition(position);    //  start recyclerview in item selected
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 }
