@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity implements FragmentManager.OnBack
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportActionBar().setElevation(0);
 
         //Listen for changes in the back stack
         getSupportFragmentManager().addOnBackStackChangedListener(this);
