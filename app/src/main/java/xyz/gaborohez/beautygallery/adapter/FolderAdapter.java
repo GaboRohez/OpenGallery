@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import xyz.gaborohez.beautygallery.app.OpenGalleryApp;
 import xyz.gaborohez.beautygallery.data.FolderPOJO;
 import xyz.gaborohez.beautygallery.databinding.ItemFolderBinding;
 
@@ -45,9 +46,11 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         String[] path = folder.getPath().split("/");
         holder.binding.tvName.setText(path[path.length-2]);
+        holder.binding.tvSize.setText(OpenGalleryApp.resourcesManager.getElements(String.valueOf(folders.get(position).getTotalItems())));
 
         Glide.with(context)
                 .load(folders.get(position).getPath())
+                .centerCrop()
                 .into(holder.binding.imageView);
 
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(position));

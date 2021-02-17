@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_xnormal_size"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="1dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="@dimen/dimen_medium_size"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView"
+        tools:src="@tools:sample/backgrounds/scenic"
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_image_folder"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_normal_size"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <ImageView
-                tools:src="@tools:sample/backgrounds/scenic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:id="@+id/imageView" />
+        <TextView
+            android:id="@+id/tvName"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:fontFamily="@font/raleway_bold"
+            tools:text="@tools:sample/cities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/tvName"
-                android:padding="@dimen/dimen_medium_size"
-                android:textColor="@color/white"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:background="@color/colorBackgroundFolder"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_alignParentBottom="true"
-                tools:text="@tools:sample/cities"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvSize"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="@tools:sample/us_zipcodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</LinearLayout>

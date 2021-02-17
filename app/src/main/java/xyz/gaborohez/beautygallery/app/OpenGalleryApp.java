@@ -28,6 +28,10 @@ public class OpenGalleryApp extends Application {
         public String getAppName(){
             return resources.getString(R.string.app_name);
         }
+
+        public String getElements(String numberElement){
+            return String.format(resources.getString(R.string.number_elements), numberElement);
+        }
     }
 
 }

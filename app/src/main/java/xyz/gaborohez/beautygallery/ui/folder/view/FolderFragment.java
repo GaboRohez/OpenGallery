@@ -137,6 +137,7 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     private void loadImages() {
 
         binding.recycler.setHasFixedSize(true);
+        binding.recycler.setNestedScrollingEnabled(false);
         binding.recycler.setLayoutManager(new GridLayoutManager(requireActivity(), 2));
         adapter = new FolderAdapter(requireActivity(), folders, this);
         binding.recycler.setAdapter(adapter);

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dimen_normal_size">16dp</dimen>
+    <dimen name="dimen_xnormal_size">32dp</dimen>
     <dimen name="dimen_medium_size">8dp</dimen>
     <dimen name="margin_extra_large">50dp</dimen>
     <dimen name="spacing">8dp</dimen>
+    <dimen name="dimen_image_folder">200dp</dimen>
 </resources>
