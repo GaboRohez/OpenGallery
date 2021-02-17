@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
@@ -16,16 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.gaborohez.beautygallery.R;
-import xyz.gaborohez.beautygallery.adapter.FolderAdapter;
 import xyz.gaborohez.beautygallery.adapter.GalleryAdapter;
 import xyz.gaborohez.beautygallery.base.BaseFragment;
 import xyz.gaborohez.beautygallery.databinding.FragmentCarouselBinding;
-import xyz.gaborohez.beautygallery.databinding.FragmentFolderBinding;
 import xyz.gaborohez.beautygallery.ui.carousel.presenter.CarouselContract;
 import xyz.gaborohez.beautygallery.ui.carousel.presenter.CarouselPresenter;
-import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
-import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
-import xyz.gaborohez.beautygallery.utils.ImagesGallery;
+import xyz.gaborohez.beautygallery.ui.pictures.view.PicturesFragment;
 
 public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, FragmentCarouselBinding> implements CarouselContract.View, GalleryAdapter.PhotoListener {
 
@@ -81,7 +76,8 @@ public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, 
     }
 
     @Override
-    public void onPhotoClick(String path) {
-        Log.d(TAG, "onPhotoClick: "+path);
+    public void onPhotoClick(int position) {
+        addFragment(PicturesFragment.newInstance(paths, position), R.id.contentFragment);
+        Log.d(TAG, "onPhotoClick: "+ position);
     }
 }

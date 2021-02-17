@@ -13,29 +13,24 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import xyz.gaborohez.beautygallery.databinding.ItemImagesBinding;
+import xyz.gaborohez.beautygallery.databinding.ItemPictureBinding;
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
+public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
 
     private static final String TAG = "GalleryAdapter";
 
     private Context context;
-    private List<String> images;
-    protected PhotoListener listener;
+    private List<String> images;;
 
-    public interface PhotoListener{
-        void onPhotoClick(int position);
-    }
-
-    public GalleryAdapter(Context context, List<String> images, PhotoListener listener) {
+    public PictureAdapter(Context context, List<String> images) {
         this.context = context;
         this.images = images;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ItemImagesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(ItemPictureBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
@@ -60,7 +55,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         holder.binding.imageView.setImageBitmap(b);*/
 
 
-        holder.itemView.setOnClickListener(v -> listener.onPhotoClick(position));
     }
 
     @Override
@@ -70,9 +64,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ItemImagesBinding binding;
+        ItemPictureBinding binding;
 
-        public ViewHolder(ItemImagesBinding binding) {
+        public ViewHolder(ItemPictureBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
