@@ -9,7 +9,7 @@ import xyz.gaborohez.beautygallery.data.FolderPOJO;
 public interface FolderContract {
     interface View extends BaseView {
 
-        void addFolder(FolderPOJO folder);
+        void addFolder(FolderPOJO folder, List<String> imageList);
     }
 
     interface Presenter {

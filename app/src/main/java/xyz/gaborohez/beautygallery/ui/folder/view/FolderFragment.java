@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import xyz.gaborohez.beautygallery.adapter.SpacesItemDecoration;
 import xyz.gaborohez.beautygallery.base.BaseFragment;
 import xyz.gaborohez.beautygallery.data.FolderPOJO;
 import xyz.gaborohez.beautygallery.databinding.FragmentFolderBinding;
+import xyz.gaborohez.beautygallery.ui.carousel.view.CarouselFragment;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
 import xyz.gaborohez.beautygallery.utils.ImagesGallery;
@@ -42,14 +44,14 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
 
     private List<String> images;
     private List<FolderPOJO> folders;
-    //private List<List<String>> folders;
+    private List<List<String>> data;
     private FolderAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         folders = new ArrayList<>();
-        //coverFolder = new ArrayList<>();
+        data = new ArrayList<>();
         presenter = new FolderPresenter(this);
     }
 
@@ -155,17 +157,17 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     }
 
     @Override
-    public void addFolder(FolderPOJO folder) {
+    public void addFolder(FolderPOJO folder, List<String> imageList) {
         folders.add(folder);
 
-        //coverFolder.add(folder.get(0));
+        data.add(imageList);
+
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPhotoClick(int position) {
-        //Log.d(TAG, "onPhotoClick: "+position);
-        //String[] path = folders.get(position).get(0).split("/");
-        //addFragment(CarouselFragment.newInstance(folders.get(position), path[path.length-2]), R.id.contentFragment);
+        String[] path = folders.get(position).getPath().split("/");
+        addFragment(CarouselFragment.newInstance(data.get(position), path[path.length-2]), R.id.contentFragment);
     }
 }

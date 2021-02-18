@@ -27,10 +27,10 @@ public class FolderPresenter extends BasePresenter<FolderContract.View> implemen
                     String[] path = r.split("/");
                     return path[path.length-2];
                 })
-                .flatMapSingle(Observable::toList) //.flatMapSingle(g -> g.toList())
+                .flatMapSingle(Observable::toList)
                 .subscribe(group -> {
                     System.out.println("folders: "+group);
-                    view.addFolder(new FolderPOJO(group.get(0), group.size()));
+                    view.addFolder(new FolderPOJO(group.get(0), group.size()), group);
                 }, throwable -> {
                     Log.d(TAG, "getFolders: "+throwable.getMessage());
                 }));
