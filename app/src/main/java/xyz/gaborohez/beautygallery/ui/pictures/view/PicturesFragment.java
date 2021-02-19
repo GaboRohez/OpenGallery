@@ -30,19 +30,12 @@ import xyz.gaborohez.beautygallery.viewmodel.GalleryViewModel;
 
 public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, FragmentPicturesBinding> implements PicturesContract.View {
 
-    //private static final String ARG_LIST = "list";
-    //private static final String ARG_POSITION = "position";
-
-    //private int position;
-    //private List<String> list;
     private PictureAdapter adapter;
     private GalleryViewModel viewModel;
 
     public static PicturesFragment newInstance() {
         PicturesFragment fragment = new PicturesFragment();
         Bundle args = new Bundle();
-        //args.putInt(ARG_POSITION, position);
-        //args.putStringArrayList(ARG_LIST, (ArrayList<String>) list);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,10 +50,6 @@ public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, F
 
         viewModel = new ViewModelProvider(requireActivity()).get(GalleryViewModel.class);
 
-        /*if (getArguments() != null) {
-            position = getArguments().getInt(ARG_POSITION);
-            list = getArguments().getStringArrayList(ARG_LIST);
-        }*/
     }
 
     @Override
