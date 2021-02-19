@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.util.Log;
@@ -21,23 +22,16 @@ import xyz.gaborohez.beautygallery.databinding.FragmentCarouselBinding;
 import xyz.gaborohez.beautygallery.ui.carousel.presenter.CarouselContract;
 import xyz.gaborohez.beautygallery.ui.carousel.presenter.CarouselPresenter;
 import xyz.gaborohez.beautygallery.ui.pictures.view.PicturesFragment;
+import xyz.gaborohez.beautygallery.viewmodel.GalleryViewModel;
 
 public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, FragmentCarouselBinding> implements CarouselContract.View, GalleryAdapter.PhotoListener {
 
-    private static final String TAG = "CarouselFragment";
-
-    private static final String ARG_TITLE = "title";
-    private static final String ARG_PATHS = "paths";
-
-    private String title;
-    private List<String> paths;
     private GalleryAdapter adapter;
+    private GalleryViewModel viewModel;
 
-    public static CarouselFragment newInstance(List<String> paths, String title) {
+    public static CarouselFragment newInstance() {
         CarouselFragment fragment = new CarouselFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_TITLE, title);
-        args.putStringArrayList(ARG_PATHS, (ArrayList<String>) paths);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,12 +40,9 @@ public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new CarouselPresenter(this);
-        if (getArguments() != null) {
-            title = getArguments().getString(ARG_TITLE);
-            paths = getArguments().getStringArrayList(ARG_PATHS);
 
-            getActivity().setTitle(title);
-        }
+        viewModel = new ViewModelProvider(requireActivity()).get(GalleryViewModel.class);
+        getActivity().setTitle(viewModel.getAlbumTitle());
     }
 
     @Override
@@ -70,14 +61,13 @@ public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, 
     private void loadImages() {
         binding.recycler.setHasFixedSize(true);
         binding.recycler.setLayoutManager(new GridLayoutManager(requireActivity(), 3));
-        adapter = new GalleryAdapter(requireActivity(), paths, this);
+        adapter = new GalleryAdapter(requireActivity(), viewModel.getPhotos(), this);
         binding.recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPhotoClick(int position) {
-        addFragment(PicturesFragment.newInstance(paths, position), R.id.contentFragment);
-        Log.d(TAG, "onPhotoClick: "+ position);
+        addFragment(PicturesFragment.newInstance(viewModel.getPhotos(), position), R.id.contentFragment);
     }
 }

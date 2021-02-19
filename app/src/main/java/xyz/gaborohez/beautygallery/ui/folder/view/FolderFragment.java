@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.provider.Settings;
@@ -34,6 +35,7 @@ import xyz.gaborohez.beautygallery.ui.carousel.view.CarouselFragment;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderContract;
 import xyz.gaborohez.beautygallery.ui.folder.presenter.FolderPresenter;
 import xyz.gaborohez.beautygallery.utils.ImagesGallery;
+import xyz.gaborohez.beautygallery.viewmodel.GalleryViewModel;
 
 import static xyz.gaborohez.beautygallery.constants.AppConstants.MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE;
 
@@ -43,16 +45,18 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     private static final String TAG = "FolderFragment";
 
     private List<String> images;
-    private List<FolderPOJO> folders;
-    private List<List<String>> data;
     private FolderAdapter adapter;
+    //private List<List<String>> data;
+    private List<FolderPOJO> folders;
+    private GalleryViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         folders = new ArrayList<>();
-        data = new ArrayList<>();
+        //data = new ArrayList<>();
         presenter = new FolderPresenter(this);
+        viewModel = new ViewModelProvider(requireActivity()).get(GalleryViewModel.class);
     }
 
     @Override
@@ -160,7 +164,8 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     public void addFolder(FolderPOJO folder, List<String> imageList) {
         folders.add(folder);
 
-        data.add(imageList);
+        //data.add(imageList);
+        viewModel.addAlbum(imageList);
 
         adapter.notifyDataSetChanged();
     }
@@ -168,6 +173,10 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     @Override
     public void onPhotoClick(int position) {
         String[] path = folders.get(position).getPath().split("/");
-        addFragment(CarouselFragment.newInstance(data.get(position), path[path.length-2]), R.id.contentFragment);
+
+        viewModel.setAlbumTitle(path[path.length-2]);
+        viewModel.setPhotos(viewModel.getAlbum().get(position));
+
+        addFragment(CarouselFragment.newInstance(), R.id.contentFragment);
     }
 }
