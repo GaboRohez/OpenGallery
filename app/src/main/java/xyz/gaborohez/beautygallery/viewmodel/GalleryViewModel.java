@@ -9,9 +9,18 @@ import xyz.gaborohez.beautygallery.data.FolderPOJO;
 
 public class GalleryViewModel extends ViewModel {
 
+    private int itemPosition;
     private String albumTitle;
     private List<String> photos = new ArrayList<>();
     private List<List<String>> album = new ArrayList<>();
+
+    public int getItemPosition() {
+        return itemPosition;
+    }
+
+    public void setItemPosition(int itemPosition) {
+        this.itemPosition = itemPosition;
+    }
 
     public String getAlbumTitle() {
         return albumTitle;

@@ -68,6 +68,8 @@ public class CarouselFragment  extends BaseFragment<CarouselContract.Presenter, 
 
     @Override
     public void onPhotoClick(int position) {
-        addFragment(PicturesFragment.newInstance(viewModel.getPhotos(), position), R.id.contentFragment);
+        viewModel.setItemPosition(position);
+
+        addFragment(PicturesFragment.newInstance(), R.id.contentFragment);
     }
 }

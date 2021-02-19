@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -25,21 +26,23 @@ import xyz.gaborohez.beautygallery.base.BaseFragment;
 import xyz.gaborohez.beautygallery.databinding.FragmentPicturesBinding;
 import xyz.gaborohez.beautygallery.ui.pictures.presenter.PicturesContract;
 import xyz.gaborohez.beautygallery.ui.pictures.presenter.PicturesPresenter;
+import xyz.gaborohez.beautygallery.viewmodel.GalleryViewModel;
 
 public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, FragmentPicturesBinding> implements PicturesContract.View {
 
-    private static final String ARG_LIST = "list";
-    private static final String ARG_POSITION = "position";
+    //private static final String ARG_LIST = "list";
+    //private static final String ARG_POSITION = "position";
 
-    private int position;
-    private List<String> list;
+    //private int position;
+    //private List<String> list;
     private PictureAdapter adapter;
+    private GalleryViewModel viewModel;
 
-    public static PicturesFragment newInstance(List<String> list, int position) {
+    public static PicturesFragment newInstance() {
         PicturesFragment fragment = new PicturesFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_POSITION, position);
-        args.putStringArrayList(ARG_LIST, (ArrayList<String>) list);
+        //args.putInt(ARG_POSITION, position);
+        //args.putStringArrayList(ARG_LIST, (ArrayList<String>) list);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,10 +54,13 @@ public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, F
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         presenter = new PicturesPresenter(this);
-        if (getArguments() != null) {
+
+        viewModel = new ViewModelProvider(requireActivity()).get(GalleryViewModel.class);
+
+        /*if (getArguments() != null) {
             position = getArguments().getInt(ARG_POSITION);
             list = getArguments().getStringArrayList(ARG_LIST);
-        }
+        }*/
     }
 
     @Override
@@ -76,11 +82,11 @@ public class PicturesFragment extends BaseFragment<PicturesContract.Presenter, F
 
         binding.recycler.setHasFixedSize(true);
         binding.recycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        adapter = new PictureAdapter(requireActivity(), list);
+        adapter = new PictureAdapter(requireActivity(), viewModel.getPhotos());
         binding.recycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        binding.recycler.scrollToPosition(position);    //  start recyclerview in item selected
+        binding.recycler.scrollToPosition(viewModel.getItemPosition());    //  start recyclerview in item selected
     }
 
     @Override

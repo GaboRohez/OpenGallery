@@ -16,8 +16,6 @@ import xyz.gaborohez.beautygallery.databinding.ItemImagesBinding;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
-    private static final String TAG = "GalleryAdapter";
-
     private Context context;
     private List<String> images;
     protected PhotoListener listener;
@@ -45,19 +43,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         Glide.with(context)
                 .load(image)
                 .into(holder.binding.imageView);
-
-        Log.d(TAG, "onBindViewHolder: "+image);
         /*Glide.with(context)
                 .load(image)
                 .placeholder(android.R.drawable.progress_indeterminate_horizontal)
                 .error(android.R.drawable.stat_notify_error)
                 .into(holder.binding.imageView);*/
-
-        /*BitmapFactory.Options options = new BitmapFactory.Options();
-        // will results in a much smaller image than the original
-        options.inSampleSize = 8;
-        Bitmap b = BitmapFactory.decodeFile(image, options);
-        holder.binding.imageView.setImageBitmap(b);*/
 
 
         holder.itemView.setOnClickListener(v -> listener.onPhotoClick(position));
