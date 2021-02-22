@@ -46,7 +46,6 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
 
     private List<String> images;
     private FolderAdapter adapter;
-    //private List<List<String>> data;
     private List<FolderPOJO> folders;
     private GalleryViewModel viewModel;
 
@@ -54,7 +53,6 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         folders = new ArrayList<>();
-        //data = new ArrayList<>();
         presenter = new FolderPresenter(this);
         viewModel = new ViewModelProvider(requireActivity()).get(GalleryViewModel.class);
     }
@@ -85,8 +83,7 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
 
             } else {
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(requireActivity(),
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
             return false;
@@ -102,8 +99,7 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
                 .setMessage(String.format(getString(R.string.text_write_permission), getString(R.string.app_name)))
                 .setPositiveButton(R.string.ok_message, (dialogInterface, i) -> {
                     //Prompt the user once explanation has been shown
-                    ActivityCompat.requestPermissions(requireActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
                 })
                 .setNegativeButton(R.string.cancel_message, (dialog, which) -> showSnackbar())
@@ -164,7 +160,6 @@ public class FolderFragment extends BaseFragment<FolderContract.Presenter, Fragm
     public void addFolder(FolderPOJO folder, List<String> imageList) {
         folders.add(folder);
 
-        //data.add(imageList);
         viewModel.addAlbum(imageList);
 
         adapter.notifyDataSetChanged();
