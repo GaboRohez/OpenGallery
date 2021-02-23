@@ -19,11 +19,17 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
 
     private Context context;
-    private List<String> images;;
+    private List<String> images;
+    private PictureIn listener;
 
-    public PictureAdapter(Context context, List<String> images) {
+    public interface PictureIn{
+        void onItemClick(String path);
+    }
+    
+    public PictureAdapter(Context context, List<String> images, PictureIn listener) {
         this.context = context;
         this.images = images;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,6 +46,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
                 .load(image)
                 .into(holder.binding.imageView);
 
+        holder.binding.imageView.setOnClickListener(v -> listener.onItemClick(images.get(position)));
         /*Glide.with(context)
                 .load(image)
                 .placeholder(android.R.drawable.progress_indeterminate_horizontal)
